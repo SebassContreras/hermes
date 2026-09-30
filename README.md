@@ -20,6 +20,12 @@ hermes/
 │   ├── product_copywriter/             # Natural product prose, value storytelling & messaging
 │   │   ├── AGENT.md
 │   │   └── SOUL.md
+│   ├── business_process_auditor/       # SMB discovery, bottleneck diagnosis & ROI modeling
+│   │   ├── AGENT.md
+│   │   └── SOUL.md
+│   ├── ai_automation_engineer/         # Low-code workflows (n8n, Make), WhatsApp & Voice agents
+│   │   ├── AGENT.md
+│   │   └── SOUL.md
 │   └── runner.py                       # CLI agent runtime supporting Hermes models
 ├── config/                             # Prompts, model presets, and environment setups
 ├── skills/                             # Reusable agent skills and procedural runbooks
@@ -42,11 +48,21 @@ cp .env.example .env
 
 ### 2. Run Any Agent Interactively
 ```powershell
+python agents/runner.py business_process_auditor
+python agents/runner.py ai_automation_engineer
 python agents/runner.py senior_fullstack_engineer
 python agents/runner.py linkedin_growth_specialist
 python agents/runner.py seo_sem_strategist
 python agents/runner.py product_copywriter
 ```
+
+### 3. Hermes Desktop Integration
+All agents are synchronized with your **Hermes Desktop** app. Switch to any agent in the desktop chat using:
+```text
+/personality business_process_auditor
+/personality ai_automation_engineer
+```
+*(Or by profile with `/profile business_process_auditor`)*.
 
 ### 📖 Agent Engineering Standard
 For character budget rules, token guidelines, and authoring instructions, read [AGENT.md](AGENT.md).
