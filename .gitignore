@@ -46,3 +46,11 @@ Thumbs.db
 logs/
 output/
 scratch/
+
+# Hermes Runtime State
+*.db
+*.db-wal
+*.db-shm
+sessions/
+memories/
+cron/
