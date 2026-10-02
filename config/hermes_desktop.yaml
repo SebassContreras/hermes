@@ -1,0 +1,59 @@
+# Hermes Desktop deployment manifest. The repo is the source of truth for every agent.
+# Apply with:  python scripts/sync_hermes.py          (preview first with --dry-run)
+#
+# Hermes injects only <profile>/SOUL.md into the system prompt; AGENT.md and AGENTS.md are never
+# loaded. sync_hermes.py therefore compiles SOUL.md + AGENT.md (the same assembly agents/runner.py
+# uses) into each profile's SOUL.md, instead of hard-linking files that editors silently unlink.
+
+# Repo-relative skills folder, added to skills.external_dirs of the orchestrator and every profile
+# so kanban_create(skills=[...]) can pin repo skills on the assignee.
+skills_dir: skills
+
+orchestrator:
+  agent: hermes_orchestrator  # compiled into <HERMES_HOME>/SOUL.md (the "default" profile)
+  enable_toolsets: [kanban]
+  config:
+    # Windows has no memory-derived default cap. Each worker is a full Hermes process plus API calls
+    # on one Anthropic key, so keep parallel lanes modest.
+    kanban.max_in_progress: 3
+  official_skills:
+    - official/communication/one-three-one-rule
+    - official/productivity/decision-questionnaire
+
+# Applied to every specialist profile. The local Qwen3.8-27B (8 GB GPU, CPU-offloaded) could not
+# finish a trivial Kanban card in 2 x 15 min on 2026-10-02, so specialists run on the same cloud
+# model and credentials as the orchestrator.
+profile_config:
+  model.provider: anthropic
+  model.default: claude-haiku-4-5-20251001
+  model.base_url: https://api.anthropic.com
+profile_config_unset:
+  - model.api_mode  # llama.cpp's chat_completions mode would break the Anthropic provider
+
+# Specialist profiles: name == agents/<dir> == Hermes profile name. The description (max 280 chars)
+# is what the Kanban decomposer and the orchestrator read to route work.
+profiles:
+  business_process_auditor: >-
+    Turns SMB discovery notes and call transcripts into process audits: As-Is vs To-Be workflows,
+    bottleneck diagnosis, tech-stack feasibility and a quantified ROI model with payback period.
+  proposal_sow_architect: >-
+    Drafts client proposals and Statements of Work for AI automation projects: deliverables,
+    in/out-of-scope tables, milestones, setup fee + monthly retainer pricing and SLAs.
+  ai_automation_engineer: >-
+    Builds production n8n and Make.com workflows, WhatsApp Cloud API bots and voice agents
+    (Retell, Vapi) from an approved scope or To-Be design.
+  senior_fullstack_engineer: >-
+    Designs, implements, tests and deploys custom web, mobile and backend software when a
+    project needs code beyond low-code automation.
+  linkedin_case_study_creator: >-
+    Turns delivered automations and client results into LinkedIn case studies, carousels and
+    lead-magnet posts that attract SMB decision-makers.
+  linkedin_growth_specialist: >-
+    Plans and runs LinkedIn outbound and inbound acquisition: ICP targeting, connection and DM
+    cadences, content strategy and campaign metrics.
+  seo_sem_strategist: >-
+    Audits and plans organic search (technical SEO, keywords, content) and paid search
+    (Google/Bing Ads) to generate high-intent inbound leads.
+  product_copywriter: >-
+    Writes landing pages, product and service copy, value propositions and marketing prose in a
+    clear, natural voice.

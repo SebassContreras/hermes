@@ -9,6 +9,8 @@ from openai import OpenAI
 from rich.console import Console
 from rich.markdown import Markdown
 
+from prompt_assembly import assemble_system_prompt
+
 load_dotenv()
 console = Console()
 
@@ -18,8 +20,8 @@ class HermesAgent:
         if not self.agent_dir.exists():
             raise FileNotFoundError(f"Agent directory does not exist: {self.agent_dir}")
             
-        self.system_prompt = self._assemble_system_prompt()
-        
+        self.system_prompt = assemble_system_prompt(self.agent_dir)
+
         base_url = os.getenv("HERMES_BASE_URL", "http://localhost:11434/v1")
         api_key = os.getenv("HERMES_API_KEY", "ollama")
         self.model = os.getenv("HERMES_MODEL", "hermes3:latest")
@@ -28,31 +30,6 @@ class HermesAgent:
         self.conversation_history: List[Dict[str, Any]] = [
             {"role": "system", "content": self.system_prompt}
         ]
-
-    def _assemble_system_prompt(self) -> str:
-        """Assembles system prompt following AGENT.md / SOUL.md hierarchy."""
-        prompt_parts: List[str] = []
-        
-        soul_file = self.agent_dir / "SOUL.md"
-        agent_file = self.agent_dir / "AGENT.md"
-        legacy_prompt = self.agent_dir / "prompt.md"
-        
-        if soul_file.exists():
-            prompt_parts.append(soul_file.read_text(encoding="utf-8").strip())
-            
-        if agent_file.exists():
-            prompt_parts.append(agent_file.read_text(encoding="utf-8").strip())
-            
-        if not prompt_parts and legacy_prompt.exists():
-            prompt_parts.append(legacy_prompt.read_text(encoding="utf-8").strip())
-            
-        if not prompt_parts:
-            raise FileNotFoundError(
-                f"No prompt configuration found in {self.agent_dir}. "
-                "Expected SOUL.md, AGENT.md, or prompt.md."
-            )
-            
-        return "\n\n---\n\n".join(prompt_parts)
 
     def chat(self, user_message: str, tools: Optional[List[Dict[str, Any]]] = None) -> str:
         self.conversation_history.append({"role": "user", "content": user_message})
