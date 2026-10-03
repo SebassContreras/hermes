@@ -45,6 +45,9 @@ profiles:
   senior_fullstack_engineer: >-
     Designs, implements, tests and deploys custom web, mobile and backend software when a
     project needs code beyond low-code automation.
+  code_quality_auditor: >-
+    Audits codebases for Clean Code, SOLID principles, separation of concerns, orphaned
+    files and functions, test suite integrity, and README documentation parity.
   linkedin_case_study_creator: >-
     Turns delivered automations and client results into LinkedIn case studies, carousels and
     lead-magnet posts that attract SMB decision-makers.

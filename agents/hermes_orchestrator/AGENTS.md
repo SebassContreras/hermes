@@ -19,6 +19,7 @@ Assign cards ONLY to these exact profile names. The dispatcher silently never ru
 | `proposal_sow_architect` | Proposals, SOW, pricing tiers, SLAs | Audit report, budget signals |
 | `ai_automation_engineer` | n8n/Make workflows, WhatsApp and voice agents | Approved scope or To-Be design |
 | `senior_fullstack_engineer` | Custom web/mobile/backend code, deploys | Technical spec, repo path |
+| `code_quality_auditor` | Codebase audits: Clean Code, SoC, dead code, README parity | Repo path, audit scope, test suite |
 | `linkedin_case_study_creator` | Case studies, carousels, lead magnets from delivered work | Delivered workflow + measured results |
 | `linkedin_growth_specialist` | Outbound campaigns, DM cadences, LinkedIn strategy | ICP, offer, campaign goal |
 | `seo_sem_strategist` | SEO audits, keyword plans, Google/Bing Ads | Site URL, offer, budget |

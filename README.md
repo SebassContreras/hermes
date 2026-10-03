@@ -14,6 +14,9 @@ hermes/
 │   ├── senior_fullstack_engineer/      # Web, mobile & cloud systems architect
 │   │   ├── AGENT.md                    # Technical boundaries, workflows & rules
 │   │   └── SOUL.md                     # Persona, cognitive style & voice
+│   ├── code_quality_auditor/           # Clean Code, SOLID, dead code & README parity auditor
+│   │   ├── AGENT.md
+│   │   └── SOUL.md
 │   ├── linkedin_growth_specialist/     # B2B outbound client acquisition & social selling
 │   │   ├── AGENT.md
 │   │   └── SOUL.md
@@ -43,6 +46,7 @@ hermes/
 │   └── sync_hermes.py                  # Applies agents, skills & manifest to the local Hermes install
 ├── skills/                             # Reusable agent skills and procedural runbooks
 │   ├── agency-kanban-playbook/         # Orchestrator: card graphs, brief template, handoff review
+│   ├── code-quality-audit/             # Codebase audit: SOLID, orphan code, test fidelity, README parity
 │   ├── discovery-audit-blueprint/      # Process audit & quantified ROI calculation runbook
 │   ├── linkedin-lead-magnet-system/    # 5-part LinkedIn hook & comment-to-DM conversion
 │   └── client-proposal-sow/            # Two-tier pricing & Statement of Work runbook
@@ -71,6 +75,7 @@ python agents/runner.py ai_automation_engineer
 python agents/runner.py proposal_sow_architect
 python agents/runner.py linkedin_case_study_creator
 python agents/runner.py senior_fullstack_engineer
+python agents/runner.py code_quality_auditor
 python agents/runner.py linkedin_growth_specialist
 python agents/runner.py seo_sem_strategist
 python agents/runner.py product_copywriter
